@@ -9,6 +9,8 @@ import javax.ws.rs.core.MediaType;
 import org.json.XML;
 import org.json.JSONObject;
 
+import static java.lang.System.getenv;
+
 import java.io.IOException;
 import java.util.concurrent.*;
 import com.rabbitmq.client.ConnectionFactory;
@@ -46,7 +48,12 @@ public class endpoint {
 			public void run() {
 				System.out.println("transfmodelo: RabbitMQ Receiver Thread initializing..");
 				ConnectionFactory factory = new ConnectionFactory();
-				factory.setHost("localhost");
+				String hostRabbit = getenv("TRANSFMODELO_SERVICE_HOST");
+				String portRabbit = getenv("TRANSFMODELO_SERVICE_PORT");
+				System.out.println("transfmodelo: hostRabbit:"+hostRabbit+":"+portRabbit);
+				
+				factory.setHost(hostRabbit);
+				factory.setPort(Integer.parseInt(portRabbit));
 				Connection connection;
 				try {
 					connection = factory.newConnection();
