@@ -28,7 +28,12 @@
 	    <groupId>org.json</groupId>
 	    <artifactId>json</artifactId>
 	    <version>20180130</version>
-	</dependency>	
+	</dependency>
+	<dependency>
+	    <groupId>com.rabbitmq</groupId>
+	    <artifactId>amqp-client</artifactId>
+	    <version>5.1.2</version>
+	</dependency>		
   </dependencies>
   <build>
     <finalName>transfmodelo</finalName><plugins>
