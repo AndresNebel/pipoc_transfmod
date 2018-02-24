@@ -21,10 +21,10 @@ public class endpoint {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_XML)
-	public JSONObject xmlToJSON(String data) {
+	public String xmlToJSON(String data) {
 		JSONObject xmlJSONObj = XML.toJSONObject(data);
 		System.out.println(xmlJSONObj.toString());
-		return xmlJSONObj;
+		return xmlJSONObj.toString();
 	}
 	
 }
