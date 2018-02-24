@@ -53,7 +53,46 @@ public class endpoint {
 				System.out.println("transfmodelo: hostRabbit:"+hostRabbit+":"+portRabbit);
 				
 				factory.setHost(hostRabbit);
-				factory.setPort(Integer.parseInt(portRabbit));
+				factory.setPort(5672);
+				Connection connection;
+				try {
+					connection = factory.newConnection();
+					Channel channel = connection.createChannel();
+					channel.queueDeclare("transfmodelo", false, false, false, null);
+					System.out.println("transfmodelo: Queue declared, adding consumer...");
+					Consumer consumer = new DefaultConsumer(channel) {
+					  @Override
+					  public void handleDelivery(String consumerTag, Envelope envelope,
+					                             AMQP.BasicProperties properties, byte[] body)
+					      throws IOException {
+					    String message = new String(body, "UTF-8");
+					    System.out.println(" [x] Received '" + message + "'");
+					  }
+					};
+					channel.basicConsume("transfmodelo", true, consumer);
+					System.out.println("transfmodelo: All set, waiting for messages now.");
+				} catch (IOException | TimeoutException e) {					
+					e.printStackTrace();
+				}
+				
+			}
+		});
+	}
+	
+	@Path("initMQ2")
+	@POST
+	public void initializeMessageQueue2() {
+		System.out.println("transfmodelo: Initializing MQ");
+		ExecutorService executor = Executors.newFixedThreadPool(1);
+		executor.submit(new Runnable() {
+			public void run() {
+				System.out.println("transfmodelo: RabbitMQ Receiver Thread initializing..");
+				ConnectionFactory factory = new ConnectionFactory();
+				String hostRabbit = getenv("TRANSFMODELO_SERVICE_HOST");
+				String portRabbit = getenv("TRANSFMODELO_SERVICE_PORT");
+				System.out.println("transfmodelo: hostRabbit:"+hostRabbit+":default");
+				
+				factory.setHost(hostRabbit);				
 				Connection connection;
 				try {
 					connection = factory.newConnection();
