@@ -48,8 +48,8 @@ public class endpoint {
 			public void run() {
 				System.out.println("transfmodelo: RabbitMQ Receiver Thread initializing..");
 				ConnectionFactory factory = new ConnectionFactory();
-				String hostRabbit = getenv("OPENSHIFT-RABBITMQ_SERVICE_HOST");
-				String portRabbit = getenv("OPENSHIFT-RABBITMQ_SERVICE_PORT");
+				String hostRabbit = getenv("OPENSHIFT_RABBITMQ_SERVICE_HOST");
+				String portRabbit = getenv("OPENSHIFT_RABBITMQ_SERVICE_PORT");
 				System.out.println("transfmodelo: hostRabbit:"+hostRabbit+":"+portRabbit);
 				
 				factory.setHost(hostRabbit);
@@ -88,8 +88,8 @@ public class endpoint {
 			public void run() {
 				System.out.println("transfmodelo: RabbitMQ Receiver Thread initializing..");
 				ConnectionFactory factory = new ConnectionFactory();
-				String hostRabbit = getenv("OPENSHIFT-RABBITMQ_SERVICE_HOST");
-				String portRabbit = getenv("OPENSHIFT-RABBITMQ_SERVICE_PORT");
+				String hostRabbit = getenv("OPENSHIFT_RABBITMQ_SERVICE_HOST");
+				String portRabbit = getenv("OPENSHIFT_RABBITMQ_SERVICE_PORT");
 				System.out.println("transfmodelo: hostRabbit:"+hostRabbit+":default");
 				
 				factory.setHost(hostRabbit);				
