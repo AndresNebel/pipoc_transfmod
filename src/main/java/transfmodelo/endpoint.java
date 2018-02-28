@@ -58,6 +58,8 @@ public class endpoint {
 					System.out.println("2" + getenv("TRANSFMODELO_TRANSF_NEXTSTEP"));
 				else if (getenv("TRANSFMODELO_TRANSF") != null) 
 					System.out.println("3" + getenv("TRANSFMODELO_TRANSF"));
+				else if (getenv("nextstep") != null) 
+					System.out.println("4" + getenv("nextstep"));
 				else 
 					System.out.println("No estan accesibles las variables de entorno :( ");
 				
