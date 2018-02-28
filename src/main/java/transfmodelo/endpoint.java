@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import static java.lang.System.getenv;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.*;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Consumer;
@@ -46,8 +47,11 @@ public class endpoint {
 		executor.submit(new Runnable() {
 			public void run() {
 				System.out.println("transfmodelo: RabbitMQ Receiver Thread initializing..");
-				
-				
+				System.out.println("Las env son:");
+				Map<String,String> mapEnv = getenv();
+				for (String key : mapEnv.keySet()) {
+					System.out.println(key);
+				}
 				if (getenv("TRANSFMODELO_NEXTSTEP") != null) 
 					System.out.println("1" + getenv("TRANSFMODELO_NEXTSTEP"));
 				else if (getenv("TRANSFMODELO_TRANSF_NEXTSTEP") != null) 
