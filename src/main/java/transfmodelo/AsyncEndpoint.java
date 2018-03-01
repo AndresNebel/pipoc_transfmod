@@ -16,7 +16,7 @@ import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
-public class MsgEndpoint implements  ServletContextListener {
+public class AsyncEndpoint implements  ServletContextListener {
 	private Thread myThread = null;
 	
 	public void contextInitialized(ServletContextEvent sce) {
@@ -29,8 +29,7 @@ public class MsgEndpoint implements  ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce){
         try {           
             myThread.interrupt();
-        } catch (Exception ex) {
-        }
+        } catch (Exception ex) {}
     }
     
     public static boolean isEmpty(String str) {
@@ -66,22 +65,23 @@ public class MsgEndpoint implements  ServletContextListener {
 					    
 					    System.out.println("Transformación: '" + json + "'");
 					    
-					    //Envio al proximo el mensaje transformado.
-					    sendAsyncMessage(json);
+					    
+					  //*** Envio al proximo el mensaje transformado. ***
+					    if (getNextStep() != "Fin") 
+					        sendAsyncMessage2NextStep(json);
 					    
 				  }
 				};
 				
-				channel.basicConsume("transfmodelo", true, consumer);
-				
-				System.out.println("Transformación: Todo listo. Esperando pedidos...");
+				channel.basicConsume("transfmodelo", true, consumer);				
+				System.out.println("Transformación: Todo listo. Esperando pedidos...");	
 				
 			} catch (IOException | TimeoutException e) {					
 				e.printStackTrace();
 			}
 		}   
 		
-		public void sendAsyncMessage(String message) {
+		public void sendAsyncMessage2NextStep(String message) {
 			ConnectionFactory factory = new ConnectionFactory();
 			String hostRabbit = getenv("OPENSHIFT_RABBITMQ_SERVICE_HOST");
 			factory.setHost(hostRabbit);
@@ -101,16 +101,6 @@ public class MsgEndpoint implements  ServletContextListener {
 			} catch (IOException | TimeoutException e) {					
 				e.printStackTrace();
 			}
-		}
-		
-		public String getNextStepURL() {
-			String resourcePath = getenv("nextstep_syncpath");
-			String baseUrl = "";
-			String nextStepName = getNextStep().toUpperCase();
-			if (!isEmpty(getenv(nextStepName+"_SERVICE_HOST")) && !isEmpty(getenv(nextStepName+"_SERVICE_PORT")))
-				baseUrl = "http://" + getenv(nextStepName+"_SERVICE_HOST") + ":" + System.getenv(nextStepName+"_SERVICE_PORT"); 
-					
-			return baseUrl + resourcePath;
 		}
 		
 		public  String getNextStep(){
