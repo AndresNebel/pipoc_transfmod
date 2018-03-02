@@ -34,7 +34,7 @@ public class SyncEndpoint {
 		String processedData = XML2JSON.transform(data);
 		System.out.println(getNextStep());
 		
-		if (getNextStep() == "Fin")
+		if (getNextStep().equals("Fin"))
 			return processedData;
 		else 			
 			return callSync2NextStep(processedData);

@@ -67,7 +67,7 @@ public class AsyncEndpoint implements  ServletContextListener {
 					    
 					    
 					  //*** Envio al proximo el mensaje transformado. ***
-					    if (getNextStep() != "Fin") 
+					    if (!getNextStep().equals("Fin")) 
 					        sendAsyncMessage2NextStep(json);
 					    
 				  }
