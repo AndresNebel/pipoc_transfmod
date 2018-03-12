@@ -59,7 +59,7 @@ public class AsyncEndpoint implements  ServletContextListener {
 						  							throws IOException {
 				      
 					    String message = new String(body, "UTF-8");
-					    System.out.println(" [x] Received '" + message + "'");
+					    System.out.println(" [x] Nuevo mensaje. Transformando..");
 					    
 					    String json = XML2JSON.transform(message);
 					    

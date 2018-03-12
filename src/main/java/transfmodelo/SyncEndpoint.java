@@ -31,8 +31,7 @@ public class SyncEndpoint {
 	@Consumes(MediaType.APPLICATION_XML)
 	public String xmlToJSON(String data) {
 		
-		String processedData = XML2JSON.transform(data);
-		System.out.println(getNextStep());
+		String processedData = XML2JSON.transform(data);		
 		
 		if (getNextStep().equals("Fin"))
 			return processedData;
