@@ -63,7 +63,7 @@ public class AsyncEndpoint implements  ServletContextListener {
 					    
 					    String json = XML2JSON.transform(message);
 					    
-					    System.out.println("Transformación: '" + json + "'");
+					    System.out.println("Transformación: '" + json.substring(0, 200) + "'");
 					    
 					    
 					  //*** Envio al proximo el mensaje transformado. ***
