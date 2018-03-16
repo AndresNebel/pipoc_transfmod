@@ -63,7 +63,7 @@ public class AsyncEndpoint implements  ServletContextListener {
 					    
 					    String json = XML2JSON.transform(message);
 					    
-					    System.out.println("Transformación: '" + json.substring(0, 200) + "'");
+					    consolePrint(json);
 					    
 					    
 					  //*** Envio al proximo el mensaje transformado. ***
@@ -107,5 +107,11 @@ public class AsyncEndpoint implements  ServletContextListener {
 			return getenv("nextstep");
 		}
 		
+		public void consolePrint(String s){
+			if (s.length() > 200)
+			    System.out.println("Transformación: '" + s.substring(0, 200) + "...'");
+			else
+				System.out.println("Transformación: '" + s + "'");
+		}
     }
 }
