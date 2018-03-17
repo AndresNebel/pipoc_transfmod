@@ -61,14 +61,17 @@ public class AsyncEndpoint implements  ServletContextListener {
 					    String message = new String(body, "UTF-8");
 					    System.out.println(" [x] Nuevo mensaje. Transformando..");
 					    
-					    String json = XML2JSON.transform(message);
-					    
-					    consolePrint(json);
-					    
-					    
-					  //*** Envio al proximo el mensaje transformado. ***
-					    if (!getNextStep().equals("Fin")) 
-					        sendAsyncMessage2NextStep(json);
+					    try {
+						    String json = XML2JSON.transform(message);
+						    consolePrint(json);
+						    					    
+						    //*** Envio al proximo el mensaje transformado. ***
+						    if (!getNextStep().equals("Fin")) 
+						        sendAsyncMessage2NextStep(json);
+					    }
+					    catch(Exception e) {
+					    	System.out.println("Catch: "+ e.toString());
+					    }
 					    
 				  }
 				};
