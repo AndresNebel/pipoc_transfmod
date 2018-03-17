@@ -32,10 +32,6 @@ public class AsyncEndpoint implements  ServletContextListener {
         } catch (Exception ex) {}
     }
     
-    public static boolean isEmpty(String str) {
-  		return str == null || str.trim().length() == 0;
-  	}
-    
     class IncomingMsgProcess implements Runnable {
 
 		@Override
